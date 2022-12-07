@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 emailNotification module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-10 07:59+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../hg-plugins/emailNotification//behaviors.php:24
+msgid "My entries"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:25
+msgid "All entries"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:29
+msgid "Email notification"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:30
+msgid "Notify new comments by email:"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:97
+#, php-format
+msgid "\"%s\" - New comment"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:123
+#, php-format
+msgid "Blog: %s"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:124
+#, php-format
+msgid "Entry: %s <%s>"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:125
+#, php-format
+msgid "Comment by: %s <%s>"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:126
+#, php-format
+msgid "Website: %s"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:127
+#, php-format
+msgid "Comment status: %s"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:128
+#, php-format
+msgid "Edit this comment: <%s>"
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:132
+msgid "You must log in on the backend before clicking on this link to go directly to the comment."
+msgstr ""
+
+#: ../hg-plugins/emailNotification//behaviors.php:134
+msgid "You received a new comment on your blog:"
+msgstr ""
