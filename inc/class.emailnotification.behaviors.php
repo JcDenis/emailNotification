@@ -74,7 +74,7 @@ class emailNotificationBehaviors
                 continue;
             }
 
-            $notification_pref = self::notificationPref(rsExtUser::options($users));
+            $notification_pref = self::notificationPref(rsExtUser::options(new dcRecord($users)));
 
             if ($notification_pref == 'all'
             || ($notification_pref == 'mine' && $users->user_id == $rs->user_id)) {
