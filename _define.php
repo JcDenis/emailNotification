@@ -1,27 +1,33 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-#
-# This file is part of emailNotification, a plugin for Dotclear 2.
-#
-# Copyright (c) Olivier Meunier and contributors
-# Licensed under the GPL version 2.0 license.
-# See LICENSE file or
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-#
-# -- END LICENSE BLOCK ------------------------------------
-if (!defined('DC_RC_PATH')) { return; }
+/**
+ * @brief emailNotification, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugin
+ *
+ * @author Olivier Meunier and contributors
+ *
+ * @copyright Jean-Christian Denis
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
+if (!defined('DC_RC_PATH')) {
+    return null;
+}
 
 $this->registerModule(
-	/* Name */			"Email notification",
-	/* Description*/		"Email notification",
-	/* Author */			"Olivier Meunier",
-	/* Version */			'1.1',
-	/* Properties */
-	array(
-		'permissions' => 'usage,contentadmin',
-		'type' => 'plugin',
-		'dc_min' => '2.6',
-		'support' => 'http://forum.dotclear.org/viewforum.php?id=16',
-		'details' => 'http://plugins.dotaddict.org/dc2/details/emailNotification'
-		)
+    'Email notification',
+    'Email notification',
+    'Olivier Meunier and contributors',
+    '1.2',
+    [
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_USAGE,
+            dcAuth::PERMISSION_CONTENT_ADMIN,
+        ]),
+        'type'       => 'plugin',
+        'support'    => 'https://github.com/JcDenis/emailNotification',
+        'details'    => 'https://plugins.dotaddict.org/dc2/details/emailNotification',
+        'repository' => 'https://raw.githubusercontent.com/JcDenis/emailNotification/master/dcstore.xml',
+    ]
 );
