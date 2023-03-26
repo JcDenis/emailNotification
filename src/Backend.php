@@ -10,11 +10,35 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return null;
-}
+declare(strict_types=1);
 
-dcCore::app()->addBehavior('adminPreferencesFormV2', ['emailNotificationBehaviors', 'adminUserForm']);
-dcCore::app()->addBehavior('adminUserForm', ['emailNotificationBehaviors', 'adminUserForm']);
-dcCore::app()->addBehavior('adminBeforeUserUpdate', ['emailNotificationBehaviors', 'adminBeforeUserUpdate']);
-dcCore::app()->addBehavior('adminBeforeUserOptionsUpdate', ['emailNotificationBehaviors', 'adminBeforeUserUpdate']);
+namespace Dotclear\Plugin\emailNotification;
+
+use dcCore;
+use dcNsProcess;
+
+class Backend extends dcNsProcess
+{
+    public static function init(): bool
+    {
+        static::$init = defined('DC_CONTEXT_ADMIN');
+
+        return static::$init;
+    }
+
+    public static function process(): bool
+    {
+        if (!static::$init) {
+            return false;
+        }
+
+        dcCore::app()->addBehaviors([
+            'adminPreferencesFormV2'       => [BackendBehaviors::class, 'adminUserForm'],
+            'adminUserForm'                => [BackendBehaviors::class, 'adminUserForm'],
+            'adminBeforeUserUpdate'        => [BackendBehaviors::class, 'adminBeforeUserUpdate'],
+            'adminBeforeUserOptionsUpdate' => [BackendBehaviors::class, 'adminBeforeUserUpdate'],
+        ]);
+
+        return true;
+    }
+}
