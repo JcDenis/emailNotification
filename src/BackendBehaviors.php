@@ -26,6 +26,11 @@ class BackendBehaviors
 {
     public static function adminUserForm(): void
     {
+        // nullsafe PHP < 8.0
+        if (is_null(dcCore::app()->auth)) {
+            return;
+        }
+
         $options = dcCore::app()->auth->getOptions();
 
         echo
@@ -43,6 +48,9 @@ class BackendBehaviors
 
     public static function adminBeforeUserUpdate(cursor $cur, string $user_id = ''): void
     {
-        $cur->user_options['notify_comments'] = $_POST['notify_comments'];
+        $opt                    = $cur->getField('user_options');
+        $opt                    = is_null($opt) ? [] : $opt;
+        $opt['notify_comments'] = $_POST['notify_comments'];
+        $cur->setField('user_options', $opt);
     }
 }
