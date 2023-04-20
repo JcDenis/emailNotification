@@ -98,7 +98,7 @@ class Frontend extends dcNsProcess
                     continue;
                 }
 
-                $o                 = rsExtUser::options(new dcRecord($users));
+                $o                 = rsExtUser::options($users);
                 $notification_pref = is_array($o) && isset($o['notify_comments']) ? $o['notify_comments'] : null;
                 unset($o);
 
