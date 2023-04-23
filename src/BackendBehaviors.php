@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
-use cursor;
 use dcCore;
+use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Form\{
     Label,
     Para,
@@ -46,7 +46,7 @@ class BackendBehaviors
         '</div>';
     }
 
-    public static function adminBeforeUserUpdate(cursor $cur, string $user_id = ''): void
+    public static function adminBeforeUserUpdate(Cursor $cur, string $user_id = ''): void
     {
         $opt                    = $cur->getField('user_options');
         $opt                    = is_null($opt) ? [] : $opt;

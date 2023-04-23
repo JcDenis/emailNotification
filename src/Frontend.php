@@ -14,12 +14,14 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
-use cursor;
 use dcAuth;
 use dcBlog;
 use dcCore;
 use dcNsProcess;
-use dcRecord;
+use Dotclear\Database\{
+    Cursor,
+    MetaRecord
+};
 use Dotclear\Database\Statement\{
     JoinStatement,
     SelectStatement
@@ -43,18 +45,18 @@ class Frontend extends dcNsProcess
             return false;
         }
 
-        dcCore::app()->addBehavior('publicAfterCommentCreate', function (cursor $cur, ?int $comment_id): void {
+        dcCore::app()->addBehavior('publicAfterCommentCreate', function (Cursor $cur, ?int $comment_id): void {
             // nullsafe PHP < 8.0
             if (is_null(dcCore::app()->auth) || is_null(dcCore::app()->blog)) {
                 return;
             }
 
-            # We don't want notification for spam
+            // We don't want notification for spam
             if ((int) $cur->getField('comment_status') == dcBlog::COMMENT_JUNK) {
                 return;
             }
 
-            # Information on comment author and post author
+            // Information on comment author and post author
             $rs = dcCore::app()->auth->sudo([dcCore::app()->blog, 'getComments'], ['comment_id' => $comment_id]);
             if (is_null($rs) || $rs->isEmpty()) {
                 return;
@@ -91,7 +93,7 @@ class Frontend extends dcNsProcess
                 return;
             }
 
-            # Create notify list
+            // Create notify list
             $ulist = [];
             while ($users->fetch()) {
                 if (!$users->f('user_email')) {
@@ -109,7 +111,7 @@ class Frontend extends dcNsProcess
             }
 
             if (count($ulist) > 0) {
-                # Author of the post wants to be notified by mail
+                // Author of the post wants to be notified by mail
                 $headers = [
                     'Reply-To: ' . $rs->f('comment_email'),
                     'Content-Type: text/plain; charset=UTF-8;',
@@ -133,7 +135,7 @@ class Frontend extends dcNsProcess
                 } elseif ((int) $cur->getField('comment_status') == dcBlog::COMMENT_PENDING) {
                     $status = __('pending');
                 } else {
-                    # unknown status
+                    // unknown status
                     $status = $cur->getField('comment_status');
                 }
 
@@ -151,7 +153,7 @@ class Frontend extends dcNsProcess
 
                 $msg = __('You received a new comment on your blog:') . "\n\n" . $msg;
 
-                # --BEHAVIOR-- emailNotificationAppendToEmail
+                // --BEHAVIOR-- emailNotificationAppendToEmail -- Cursor
                 $msg .= dcCore::app()->callBehavior('emailNotificationAppendToEmail', $cur);
 
                 foreach ($ulist as $email) {
