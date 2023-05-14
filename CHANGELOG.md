@@ -1,3 +1,7 @@
+1.5 - 2023.05.14
+- require dotclear 2.26
+- fix wrong repository version
+
 1.4 - 2023.04.22
 - require dotclear 2.26
 - use latest dotclear namespace
