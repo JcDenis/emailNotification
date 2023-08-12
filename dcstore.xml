@@ -2,12 +2,12 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="emailNotification">
     <name>Email notification</name>
-    <version>1.5</version>
+    <version>1.6</version>
     <author>Olivier Meunier and contributors</author>
     <desc>Email notification</desc>
-    <file>https://github.com/JcDenis/emailNotification/releases/download/v1.5/plugin-emailNotification.zip</file>
-    <da:dcmin>2.26</da:dcmin>
-    <da:details>https://plugins.dotaddict.org/dc2/details/emailNotification</da:details>
-    <da:support>https://github.com/JcDenis/emailNotification</da:support>
+    <file>https://git.dotclear.watch/JcDenis/emailNotification/releases/download/v1.6/plugin-emailNotification.zip</file>
+    <da:dcmin>2.27</da:dcmin>
+    <da:details>https://git.dotclear.watch/JcDenis/emailNotification/src/branch/master/README.md</da:details>
+    <da:support>https://git.dotclear.watch/JcDenis/emailNotification/issues</da:support>
   </module>
 </modules>

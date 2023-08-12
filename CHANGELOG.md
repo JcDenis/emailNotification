@@ -1,19 +1,32 @@
-1.5 - 2023.05.14
-- require dotclear 2.26
-- fix wrong repository version
+emailNotification 1.6 - 2023.08.12
+===========================================================
+* Require Dotclear 2.27
+* Require PHP 7.4+
+* Upgrade to Dotclear 2.27
+* Move third party repository
+* Use Dotclear style for CHANGELOG
 
-1.4 - 2023.04.22
-- require dotclear 2.26
-- use latest dotclear namespace
-- use sql statement
-- fix nullsafe warnings
+emailNotification 1.5 - 2023.05.14
+===========================================================
+* require dotclear 2.26
+* fix wrong repository version
 
-1.3 - 2023.03.26
-- require dotclear 2.26
-- use namespace
+emailNotification 1.4 - 2023.04.22
+===========================================================
+* require dotclear 2.26
+* use latest dotclear namespace
+* use sql statement
+* fix nullsafe warnings
 
-1.2 - 2022.12.07
-- update to dotclear 2.24
+emailNotification 1.3 - 2023.03.26
+===========================================================
+* require dotclear 2.26
+* use namespace
 
-1.1
-- first commit on github
+emailNotification 1.2 - 2022.12.07
+===========================================================
+* update to dotclear 2.24
+
+emailNotification 1.1
+===========================================================
+* first commit on github
