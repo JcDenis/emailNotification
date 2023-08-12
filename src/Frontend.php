@@ -17,7 +17,7 @@ namespace Dotclear\Plugin\emailNotification;
 use dcAuth;
 use dcBlog;
 use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Process;
 use Dotclear\Database\{
     Cursor,
     MetaRecord
@@ -30,24 +30,22 @@ use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Mail\Mail;
 use rsExtUser;
 
-class Frontend extends dcNsProcess
+class Frontend extends Process
 {
     public static function init(): bool
     {
-        static::$init = defined('DC_RC_PATH');
-
-        return static::$init;
+        return self::status(My::checkContext(My::FRONTEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
         dcCore::app()->addBehavior('publicAfterCommentCreate', function (Cursor $cur, ?int $comment_id): void {
             // nullsafe PHP < 8.0
-            if (is_null(dcCore::app()->auth) || is_null(dcCore::app()->blog)) {
+            if (is_null(dcCore::app()->blog)) {
                 return;
             }
 

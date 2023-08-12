@@ -26,11 +26,6 @@ class BackendBehaviors
 {
     public static function adminUserForm(): void
     {
-        // nullsafe PHP < 8.0
-        if (is_null(dcCore::app()->auth)) {
-            return;
-        }
-
         $options = dcCore::app()->auth->getOptions();
 
         echo
