@@ -1,20 +1,10 @@
 <?php
-/**
- * @brief emailNotification, a plugin for Dotclear 2
- *
- * @package Dotclear
- * @subpackage Plugin
- *
- * @author Olivier Meunier and contributors
- *
- * @copyright Jean-Christian Denis
- * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
- */
+
 declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Form\{
     Label,
@@ -22,11 +12,19 @@ use Dotclear\Helper\Html\Form\{
     Select
 };
 
+/**
+ * @brief       emailNotification backend behaviors.
+ * @ingroup     emailNotification
+ *
+ * @author      Olivier Meunier (author)
+ * @author      Jean-Christian Denis (latest)
+ * @copyright   GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 class BackendBehaviors
 {
     public static function adminUserForm(): void
     {
-        $options = dcCore::app()->auth->getOptions();
+        $options = App::auth()->getOptions();
 
         echo
         '<div class="fieldset"><h5>' . __('Email notification') . '</h5>' .

@@ -1,22 +1,20 @@
 <?php
-/**
- * @brief emailNotification, a plugin for Dotclear 2
- *
- * @package Dotclear
- * @subpackage Plugin
- *
- * @author Olivier Meunier and contributors
- *
- * @copyright Jean-Christian Denis
- * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
- */
+
 declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
+/**
+ * @brief       emailNotification backend class.
+ * @ingroup     emailNotification
+ *
+ * @author      Olivier Meunier (author)
+ * @author      Jean-Christian Denis (latest)
+ * @copyright   GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 class Backend extends Process
 {
     public static function init(): bool
@@ -30,11 +28,11 @@ class Backend extends Process
             return false;
         }
 
-        dcCore::app()->addBehaviors([
-            'adminPreferencesFormV2'       => [BackendBehaviors::class, 'adminUserForm'],
-            'adminUserForm'                => [BackendBehaviors::class, 'adminUserForm'],
-            'adminBeforeUserUpdate'        => [BackendBehaviors::class, 'adminBeforeUserUpdate'],
-            'adminBeforeUserOptionsUpdate' => [BackendBehaviors::class, 'adminBeforeUserUpdate'],
+        App::behavior()->addBehaviors([
+            'adminPreferencesFormV2'       => BackendBehaviors::adminUserForm(...),
+            'adminUserForm'                => BackendBehaviors::adminUserForm(...),
+            'adminBeforeUserUpdate'        => BackendBehaviors::adminBeforeUserUpdate(...),
+            'adminBeforeUserOptionsUpdate' => BackendBehaviors::adminBeforeUserUpdate(...),
         ]);
 
         return true;

@@ -1,22 +1,10 @@
 <?php
-/**
- * @brief emailNotification, a plugin for Dotclear 2
- *
- * @package Dotclear
- * @subpackage Plugin
- *
- * @author Olivier Meunier and contributors
- *
- * @copyright Jean-Christian Denis
- * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
- */
+
 declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
-use dcAuth;
-use dcBlog;
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Database\{
     Cursor,
@@ -28,8 +16,16 @@ use Dotclear\Database\Statement\{
 };
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Mail\Mail;
-use rsExtUser;
+use Dotclear\Schema\Extension\User;
 
+/**
+ * @brief       emailNotification frontend class.
+ * @ingroup     emailNotification
+ *
+ * @author      Olivier Meunier (author)
+ * @author      Jean-Christian Denis (latest)
+ * @copyright   GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 class Frontend extends Process
 {
     public static function init(): bool
@@ -43,25 +39,24 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehavior('publicAfterCommentCreate', function (Cursor $cur, ?int $comment_id): void {
-            // nullsafe PHP < 8.0
-            if (is_null(dcCore::app()->blog)) {
+        App::behavior()->addBehavior('publicAfterCommentCreate', function (Cursor $cur, ?int $comment_id): void {
+            if (!App::blog()->isDefined()) {
                 return;
             }
 
             // We don't want notification for spam
-            if ((int) $cur->getField('comment_status') == dcBlog::COMMENT_JUNK) {
+            if ((int) $cur->getField('comment_status') == App::blog()::COMMENT_JUNK) {
                 return;
             }
 
             // Information on comment author and post author
-            $rs = dcCore::app()->auth->sudo([dcCore::app()->blog, 'getComments'], ['comment_id' => $comment_id]);
+            $rs = App::auth()->sudo(App::blog()->getComments(...), ['comment_id' => $comment_id]);
             if (is_null($rs) || $rs->isEmpty()) {
                 return;
             }
 
             $sql   = new SelectStatement();
-            $users = $sql->from($sql->as(dcCore::app()->blog->prefix . dcAuth::USER_TABLE_NAME, 'U'))
+            $users = $sql->from($sql->as(App::con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
                 ->columns([
                     'U.user_id as user_id',
                     'user_email',
@@ -69,11 +64,11 @@ class Frontend extends Process
                 ])
                 ->join(
                     (new JoinStatement())
-                    ->from($sql->as(dcCore::app()->blog->prefix . dcAuth::PERMISSIONS_TABLE_NAME, 'P'))
+                    ->from($sql->as(App::con()->prefix() . App::auth()::PERMISSIONS_TABLE_NAME, 'P'))
                     ->on('U.user_id = P.user_id')
                     ->statement()
                 )
-                ->where('blog_id = ' . $sql->quote(dcCore::app()->blog->id))
+                ->where('blog_id = ' . $sql->quote(App::blog()->id()))
                 ->union(
                     (new SelectStatement())
                     ->columns([
@@ -81,7 +76,7 @@ class Frontend extends Process
                         'user_email',
                         'user_options',
                     ])
-                    ->from($sql->as(dcCore::app()->blog->prefix . dcAuth::USER_TABLE_NAME, 'U'))
+                    ->from($sql->as(App::con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
                     ->where('user_super = 1')
                     ->statement()
                 )
@@ -98,7 +93,7 @@ class Frontend extends Process
                     continue;
                 }
 
-                $o                 = rsExtUser::options($users);
+                $o                 = User::options($users);
                 $notification_pref = is_array($o) && isset($o['notify_comments']) ? $o['notify_comments'] : null;
                 unset($o);
 
@@ -114,23 +109,23 @@ class Frontend extends Process
                     'Reply-To: ' . $rs->f('comment_email'),
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Mailer: Dotclear',
-                    'X-Blog-Id: ' . Mail::B64Header(dcCore::app()->blog->id),
-                    'X-Blog-Name: ' . Mail::B64Header(dcCore::app()->blog->name),
-                    'X-Blog-Url: ' . Mail::B64Header(dcCore::app()->blog->url),
+                    'X-Blog-Id: ' . Mail::B64Header(App::blog()->id()),
+                    'X-Blog-Name: ' . Mail::B64Header(App::blog()->name()),
+                    'X-Blog-Url: ' . Mail::B64Header(App::blog()->url()),
                 ];
 
-                $subject = '[' . dcCore::app()->blog->name . '] ' . sprintf(__('"%s" - New comment'), $rs->f('post_title'));
+                $subject = '[' . App::blog()->name() . '] ' . sprintf(__('"%s" - New comment'), $rs->f('post_title'));
                 $subject = Mail::B64Header($subject);
 
                 $msg = preg_replace('%</p>\s*<p>%msu', "\n\n", $rs->f('comment_content'));
                 $msg = Html::clean($msg);
                 $msg = html_entity_decode($msg);
 
-                if ((int) $cur->getField('comment_status') == dcBlog::COMMENT_PUBLISHED) {
+                if ((int) $cur->getField('comment_status') == App::blog()::COMMENT_PUBLISHED) {
                     $status = __('published');
-                } elseif ((int) $cur->getField('comment_status') == dcBlog::COMMENT_UNPUBLISHED) {
+                } elseif ((int) $cur->getField('comment_status') == App::blog()::COMMENT_UNPUBLISHED) {
                     $status = __('unpublished');
-                } elseif ((int) $cur->getField('comment_status') == dcBlog::COMMENT_PENDING) {
+                } elseif ((int) $cur->getField('comment_status') == App::blog()::COMMENT_PENDING) {
                     $status = __('pending');
                 } else {
                     // unknown status
@@ -138,21 +133,21 @@ class Frontend extends Process
                 }
 
                 $msg .= "\n\n-- \n" .
-                sprintf(__('Blog: %s'), dcCore::app()->blog->name) . "\n" .
+                sprintf(__('Blog: %s'), App::blog()->name()) . "\n" .
                 sprintf(__('Entry: %s <%s>'), $rs->f('post_title'), $rs->getPostURL()) . "\n" .
                 sprintf(__('Comment by: %s <%s>'), $rs->f('comment_author'), $rs->f('comment_email')) . "\n" .
                 sprintf(__('Website: %s'), $rs->getAuthorURL()) . "\n" .
                 sprintf(__('Comment status: %s'), $status) . "\n" .
-                sprintf(__('Edit this comment: <%s>'), DC_ADMIN_URL .
-                    ((substr(DC_ADMIN_URL, -1) != '/') ? '/' : '') .
+                sprintf(__('Edit this comment: <%s>'), App::config()->adminUrl() .
+                    ((substr(App::config()->adminUrl(), -1) != '/') ? '/' : '') .
                     'comment.php?id=' . $cur->getField('comment_id') .
-                    '&switchblog=' . dcCore::app()->blog->id) . "\n" .
+                    '&switchblog=' . App::blog()->id()) . "\n" .
                 __('You must log in on the backend before clicking on this link to go directly to the comment.');
 
                 $msg = __('You received a new comment on your blog:') . "\n\n" . $msg;
 
                 // --BEHAVIOR-- emailNotificationAppendToEmail -- Cursor
-                $msg .= dcCore::app()->callBehavior('emailNotificationAppendToEmail', $cur);
+                $msg .= App::behavior()->callBehavior('emailNotificationAppendToEmail', $cur);
 
                 foreach ($ulist as $email) {
                     $h = array_merge(['From: ' . $email], $headers);

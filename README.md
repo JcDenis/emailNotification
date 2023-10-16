@@ -1,24 +1,21 @@
 # README
 
-[![Release](https://img.shields.io/badge/release-1.6-a2cbe9.svg)](https://git.dotclear.watch/JcDenis/emailNotification/releases)
-[![Date](https://img.shields.io/badge/date-2023.08.12-c44d58.svg)](https://git.dotclear.watch/JcDenis/emailNotification/releases)
-[![Dotclear](https://img.shields.io/badge/dotclear-v2.27-137bbb.svg)](https://fr.dotclear.org/download)
+[![Release](https://img.shields.io/badge/release-1.7-a2cbe9.svg)](https://git.dotclear.watch/JcDenis/emailNotification/releases)
+![Date](https://img.shields.io/badge/date-2023.10.16-c44d58.svg)
+[![Dotclear](https://img.shields.io/badge/dotclear-v2.28-137bbb.svg)](https://fr.dotclear.org/download)
 [![Dotaddict](https://img.shields.io/badge/dotaddict-official-9ac123.svg)](https://plugins.dotaddict.org/dc2/details/emailNotification)
-[![License](https://img.shields.io/github/license/JcDenis/emailNotification)](https://git.dotclear.watch/JcDenis/emailNotification/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-GPL--2.0-ececec.svg)](https://git.dotclear.watch/JcDenis/emailNotification/src/branch/master/LICENSE)
 
-## WHAT IS EMAILNOTIFICATION ?
+## ABOUT
 
-_Email notification_ is a plugin for the open-source 
-web publishing software called Dotclear.
+_emailNotification_ is a plugin for the open-source web publishing software called [Dotclear](https://www.dotclear.org).
 
-It sends email when a new comment is done.
+> Send email when a new comment is done.
 
 ## REQUIREMENTS
 
-_Email notification_ requires: 
-
-* Dotclear 2.27
-* PHP 7.4+
+* Dotclear 2.28
+* PHP 8.1+
 * A working mail service
 
 ## USAGE
@@ -30,13 +27,14 @@ Go to ''user preferences'' => fieldset ''others options'', fill in form.
 
 ## LINKS
 
-* License : [GNU GPL v2](https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html)
-* Source & contribution : [Gitea Page](https://git.dotclear.watch/JcDenis/emailNotification) or [GitHub Page](https://github.com/JcDenis/emailNotification)
-* Packages & details : [Gitea Page](https://git.dotclear.watch/JcDenis/emailNotification/releases) or [Dotaddict Page](https://plugins.dotaddict.org/dc2/details/emailNotification)
+* [License](https://git.dotclear.watch/JcDenis/emailNotification/src/branch/master/LICENSE)
+* [Packages & details](https://git.dotclear.watch/JcDenis/emailNotification/releases) (or on [Dotaddict](https://plugins.dotaddict.org/dc2/details/emailNotification))
+* [Sources & contributions](https://git.dotclear.watch/JcDenis/emailNotification) (or on [GitHub](https://github.com/JcDenis/emailNotification))
+* [Issues & security](https://git.dotclear.watch/JcDenis/emailNotification/issues) (or on [GitHub](https://github.com/JcDenis/emailNotification/issues))
 
 ## CONTRIBUTORS
 
 * Olivier Meunier (author)
-* Jean-Christian Denis
+* Jean-Christian Denis (latest)
 
 You are welcome to contribute to this code.
