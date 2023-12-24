@@ -1,7 +1,7 @@
 # README
 
-[![Release](https://img.shields.io/badge/release-1.7-a2cbe9.svg)](https://git.dotclear.watch/JcDenis/emailNotification/releases)
-![Date](https://img.shields.io/badge/date-2023.10.16-c44d58.svg)
+[![Release](https://img.shields.io/badge/release-1.8-a2cbe9.svg)](https://git.dotclear.watch/JcDenis/emailNotification/releases)
+![Date](https://img.shields.io/badge/date-2023.12.24-c44d58.svg)
 [![Dotclear](https://img.shields.io/badge/dotclear-v2.28-137bbb.svg)](https://fr.dotclear.org/download)
 [![Dotaddict](https://img.shields.io/badge/dotaddict-official-9ac123.svg)](https://plugins.dotaddict.org/dc2/details/emailNotification)
 [![License](https://img.shields.io/badge/license-GPL--2.0-ececec.svg)](https://git.dotclear.watch/JcDenis/emailNotification/src/branch/master/LICENSE)

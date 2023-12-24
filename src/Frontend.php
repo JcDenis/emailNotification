@@ -117,16 +117,16 @@ class Frontend extends Process
                 $subject = '[' . App::blog()->name() . '] ' . sprintf(__('"%s" - New comment'), $rs->f('post_title'));
                 $subject = Mail::B64Header($subject);
 
-                $msg = preg_replace('%</p>\s*<p>%msu', "\n\n", $rs->f('comment_content'));
+                $msg = preg_replace('%</p>\s*<p>%msu', "\n\n", (string) $rs->f('comment_content'));
                 $msg = Html::clean($msg);
                 $msg = html_entity_decode($msg);
 
                 if ((int) $cur->getField('comment_status') == App::blog()::COMMENT_PUBLISHED) {
-                    $status = __('published');
+                    $status = __('Published');
                 } elseif ((int) $cur->getField('comment_status') == App::blog()::COMMENT_UNPUBLISHED) {
-                    $status = __('unpublished');
+                    $status = __('Unpublished');
                 } elseif ((int) $cur->getField('comment_status') == App::blog()::COMMENT_PENDING) {
-                    $status = __('pending');
+                    $status = __('Pending');
                 } else {
                     // unknown status
                     $status = $cur->getField('comment_status');
