@@ -5,17 +5,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\emailNotification;
 
 use Dotclear\App;
-use Dotclear\Database\Cursor;
-use Dotclear\Database\MetaRecord;
-use Dotclear\Helper\Html\Form\{
-    Div,
-    Fieldset,
-    Label,
-    Legend,
-    Para,
-    Select,
-    Text
-};
+use Dotclear\Database\{ Cursor, MetaRecord };
+use Dotclear\Helper\Html\Form\{ Fieldset, Img, Label, Legend, Para, Select };
 use Dotclear\Schema\Extension\User;
 
 /**
@@ -32,7 +23,7 @@ class BackendBehaviors
     {
         echo (new Fieldset())
             ->id(My::id() . '_prefs')
-            ->legend(new Legend(My::name()))
+            ->legend(new Legend((new Img(My::icons()[0]))->class('icon-small')->render() . ' ' . My::name()))
             ->fields([
                 self::formForm(App::auth()->getOption(My::id())),
             ])->render();
