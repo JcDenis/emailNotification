@@ -1,3 +1,8 @@
+emailNotification 2.1 - 2025.06.26
+===========================================================
+* Add icon
+* Satndardize backend blocs
+
 emailNotification 2.0.1 - 2025.03.01
 ===========================================================
 * Require Dotclear 2.33

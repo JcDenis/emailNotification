@@ -18,7 +18,7 @@ $this->registerModule(
     'Email notification',
     'Email notification',
     'Olivier Meunier and contributors',
-    '2.0.2',
+    '2.1',
     [
         'requires'    => [['core', '2.33']],
         'settings'    => ['pref' => '#user-options.' . $this->id . '_prefs'],
