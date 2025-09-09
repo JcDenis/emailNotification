@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/jcdenis/emailNotification?color=lightblue)](https://github.com/JcDenis/emailNotification/releases)
 ![Date](https://img.shields.io/github/release-date/jcdenis/emailNotification?color=red)
-[![Dotclear](https://img.shields.io/badge/dotclear-v2.33-137bbb.svg)](https://fr.dotclear.org/download)
+[![Dotclear](https://img.shields.io/badge/dotclear-v2.36-137bbb.svg)](https://fr.dotclear.org/download)
 [![Dotaddict](https://img.shields.io/badge/dotaddict-official-9ac123.svg)](https://plugins.dotaddict.org/dc2/details/emailNotification)
 [![License](https://img.shields.io/github/license/jcdenis/emailNotification?color=white)](https://github.com/JcDenis/emailNotification/blob/master/LICENSE)
 
@@ -14,7 +14,7 @@ _emailNotification_ is a plugin for the open-source web publishing software call
 
 ## REQUIREMENTS
 
-* Dotclear 2.33
+* Dotclear 2.36
 * PHP 8.1+
 * A working mail service
 
