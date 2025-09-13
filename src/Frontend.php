@@ -6,14 +6,10 @@ namespace Dotclear\Plugin\emailNotification;
 
 use Dotclear\App;
 use Dotclear\Helper\Process\TraitProcess;
-use Dotclear\Database\{
-    Cursor,
-    MetaRecord
-};
-use Dotclear\Database\Statement\{
-    JoinStatement,
-    SelectStatement
-};
+use Dotclear\Database\Cursor;
+use Dotclear\Database\MetaRecord;
+use Dotclear\Database\Statement\JoinStatement;
+use Dotclear\Database\Statement\SelectStatement;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Schema\Extension\User;
@@ -61,7 +57,7 @@ class Frontend
             }
 
             $sql   = new SelectStatement();
-            $users = $sql->from($sql->as(App::con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
+            $users = $sql->from($sql->as(App::db()->con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
                 ->columns([
                     'U.user_id as user_id',
                     'user_email',
@@ -69,7 +65,7 @@ class Frontend
                 ])
                 ->join(
                     (new JoinStatement())
-                    ->from($sql->as(App::con()->prefix() . App::auth()::PERMISSIONS_TABLE_NAME, 'P'))
+                    ->from($sql->as(App::db()->con()->prefix() . App::auth()::PERMISSIONS_TABLE_NAME, 'P'))
                     ->on('U.user_id = P.user_id')
                     ->statement()
                 )
@@ -81,7 +77,7 @@ class Frontend
                         'user_email',
                         'user_options',
                     ])
-                    ->from($sql->as(App::con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
+                    ->from($sql->as(App::db()->con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
                     ->where('user_super = 1')
                     ->statement()
                 )
@@ -99,7 +95,7 @@ class Frontend
                 }
 
                 $o                 = User::options($users);
-                $notification_pref = is_array($o) && isset($o[My::id()]) ? $o[My::id()] : null;
+                $notification_pref = isset($o[My::id()]) ? $o[My::id()] : null;
                 unset($o);
 
                 if ($notification_pref == 'all'

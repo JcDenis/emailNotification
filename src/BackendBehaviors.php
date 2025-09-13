@@ -5,8 +5,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\emailNotification;
 
 use Dotclear\App;
-use Dotclear\Database\{ Cursor, MetaRecord };
-use Dotclear\Helper\Html\Form\{ Fieldset, Img, Label, Legend, Para, Select };
+use Dotclear\Database\Cursor;
+use Dotclear\Database\MetaRecord;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Img;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Schema\Extension\User;
 
 /**
