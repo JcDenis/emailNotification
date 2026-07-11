@@ -1,3 +1,7 @@
+emailNotification 2.3 - xxxx.xx.xx
+===========================================================
+* Bump Dotclear from 2.36 to 2.39
+
 emailNotification 2.2 - 2025.09.09
 ===========================================================
 * Bump Dotclear from 2.33 to 2.36

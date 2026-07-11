@@ -20,7 +20,7 @@ $this->registerModule(
     'Olivier Meunier and contributors',
     '2.2.1',
     [
-        'requires'    => [['core', '2.36']],
+        'requires'    => [['core', '2.39']],
         'settings'    => ['pref' => '#user-options.' . $this->id . '_prefs'],
         'permissions' => 'My',
         'type'        => 'plugin',
