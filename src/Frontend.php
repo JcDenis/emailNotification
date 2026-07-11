@@ -90,7 +90,7 @@ class Frontend
             // Create notify list
             $ulist = [];
             while ($users->fetch()) {
-                if (!$users->f('user_email')) {
+                if ($users->strField('user_email') === '') {
                     continue;
                 }
 
@@ -99,15 +99,15 @@ class Frontend
                 unset($o);
 
                 if ($notification_pref == 'all'
-                || ($notification_pref == 'mine' && $users->f('user_id') == $rs->f('user_id'))) {
-                    $ulist[$users->f('user_id')] = $users->f('user_email');
+                || ($notification_pref == 'mine' && $users->strField('user_id') == $rs->strField('user_id'))) {
+                    $ulist[$users->strField('user_id')] = $users->strField('user_email');
                 }
             }
 
             if (count($ulist) > 0) {
                 // Author of the post wants to be notified by mail
                 $headers = [
-                    'Reply-To: ' . $rs->f('comment_email'),
+                    'Reply-To: ' . $rs->strField('comment_email'),
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Mailer: Dotclear',
                     'X-Blog-Id: ' . Mail::B64Header(App::blog()->id()),
@@ -115,17 +115,17 @@ class Frontend
                     'X-Blog-Url: ' . Mail::B64Header(App::blog()->url()),
                 ];
 
-                $subject = '[' . App::blog()->name() . '] ' . sprintf(__('"%s" - New comment'), $rs->f('post_title'));
+                $subject = '[' . App::blog()->name() . '] ' . sprintf(__('"%s" - New comment'), $rs->strField('post_title'));
                 $subject = Mail::B64Header($subject);
 
-                $msg = preg_replace('%</p>\s*<p>%msu', "\n\n", (string) $rs->f('comment_content'));
+                $msg = preg_replace('%</p>\s*<p>%msu', "\n\n", (string) $rs->strField('comment_content'));
                 $msg = Html::clean($msg);
                 $msg = html_entity_decode($msg);
 
                 $msg .= "\n\n-- \n" .
                 sprintf(__('Blog: %s'), App::blog()->name()) . "\n" .
-                sprintf(__('Entry: %s <%s>'), $rs->f('post_title'), $rs->getPostURL()) . "\n" .
-                sprintf(__('Comment by: %s <%s>'), $rs->f('comment_author'), $rs->f('comment_email')) . "\n" .
+                sprintf(__('Entry: %s <%s>'), $rs->strField('post_title'), $rs->getPostURL()) . "\n" .
+                sprintf(__('Comment by: %s <%s>'), $rs->strField('comment_author'), $rs->strField('comment_email')) . "\n" .
                 sprintf(__('Website: %s'), $rs->getAuthorURL()) . "\n" .
                 sprintf(__('Comment status: %s'), __(App::status()->comment()->name($cur->getField('comment_status')))) . "\n" .
                 sprintf(__('Edit this comment: <%s>'), App::config()->adminUrl() .
