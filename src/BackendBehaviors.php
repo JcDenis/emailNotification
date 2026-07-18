@@ -31,13 +31,13 @@ class BackendBehaviors
             ->id(My::id() . '_prefs')
             ->legend(new Legend((new Img(My::icons()[0]))->class('icon-small')->render() . ' ' . My::name()))
             ->fields([
-                self::formForm(App::auth()->getOption(My::id())),
+                self::formForm(is_string(App::auth()->getOption(My::id())) ? App::auth()->getOption(My::id()) : null),
             ])->render();
     }
 
     public static function userForm(?MetaRecord $rs): void
     {
-        echo self::formForm(is_null($rs)  || $rs->isEmpty() ? '0' : User::option($rs, My::id()))->render();
+        echo self::formForm(is_null($rs) || $rs->isEmpty() ? '0' : (is_string(User::option($rs, My::id())) ? User::option($rs, My::id()) : null))->render();
     }
 
     public static function formForm(?string $option): Para
@@ -54,9 +54,11 @@ class BackendBehaviors
 
     public static function updateUser(Cursor $cur, string $user_id = ''): void
     {
-        $opt           = $cur->getField('user_options');
-        $opt           = is_null($opt) ? [] : $opt;
-        $opt[My::id()] = $_POST[My::id()];
-        $cur->setField('user_options', $opt);
+        if (isset($_POST[My::id()]) && is_string($_POST[My::id()])) {
+            $opt           = $cur->getField('user_options');
+            $opt           = !is_array($opt) ? [] : $opt;
+            $opt[My::id()] = $_POST[My::id()];
+            $cur->setField('user_options', $opt);
+        }
     }
 }

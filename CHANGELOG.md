@@ -1,6 +1,7 @@
 emailNotification 2.3 - xxxx.xx.xx
 ===========================================================
 * Bump Dotclear from 2.36 to 2.39
+* Code review (phpstan max)
 
 emailNotification 2.2 - 2025.09.09
 ===========================================================

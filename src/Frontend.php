@@ -43,7 +43,7 @@ class Frontend
             }
 
             // We don't want notification for spam
-            if ((int) $cur->getField('comment_status') == App::status()->comment()::JUNK) {
+            if (!is_numeric($cur->getField('comment_status')) || (int) $cur->getField('comment_status') == App::status()->comment()::JUNK) {
                 return;
             }
 
@@ -52,7 +52,7 @@ class Frontend
             $rs = App::auth()->sudo(App::blog()->getComments(...), ['comment_id' => $comment_id]);
             App::frontend()->context()->preview = false;
 
-            if (is_null($rs) || $rs->isEmpty()) {
+            if (!($rs instanceof MetaRecord) || $rs->isEmpty()) {
                 return;
             }
 
@@ -127,10 +127,10 @@ class Frontend
                 sprintf(__('Entry: %s <%s>'), $rs->strField('post_title'), $rs->getPostURL()) . "\n" .
                 sprintf(__('Comment by: %s <%s>'), $rs->strField('comment_author'), $rs->strField('comment_email')) . "\n" .
                 sprintf(__('Website: %s'), $rs->getAuthorURL()) . "\n" .
-                sprintf(__('Comment status: %s'), __(App::status()->comment()->name($cur->getField('comment_status')))) . "\n" .
+                sprintf(__('Comment status: %s'), __(App::status()->comment()->name((int) $cur->getField('comment_status')))) . "\n" .
                 sprintf(__('Edit this comment: <%s>'), App::config()->adminUrl() .
                     (str_ends_with(App::config()->adminUrl(), '/') ? '' : '/') .
-                    '?process=Comment&id=' . $cur->getField('comment_id') .
+                    '?process=Comment&id=' . (is_numeric($cur->getField('comment_id')) ? $cur->getField('comment_id') : 0) .
                     '&switchblog=' . App::blog()->id()
                 ) . "\n" .
                 __('You must log in on the backend before clicking on this link to go directly to the comment.');
