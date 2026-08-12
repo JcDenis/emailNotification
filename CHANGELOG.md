@@ -1,4 +1,4 @@
-emailNotification 2.3 - xxxx.xx.xx
+emailNotification 2.3 - 2026.08.12
 ===========================================================
 * Bump Dotclear from 2.36 to 2.39
 * Code review (phpstan max)
