@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\emailNotification;
 
+use ArrayObject;
 use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Database\MetaRecord;
@@ -56,7 +57,7 @@ class BackendBehaviors
     {
         if (isset($_POST[My::id()]) && is_string($_POST[My::id()])) {
             $opt           = $cur->getField('user_options');
-            $opt           = !is_array($opt) ? [] : $opt;
+            $opt           = !($opt instanceof ArrayObject) ? new ArrayObject([]) : $opt;
             $opt[My::id()] = $_POST[My::id()];
             $cur->setField('user_options', $opt);
         }
