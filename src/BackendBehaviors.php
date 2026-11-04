@@ -32,13 +32,23 @@ class BackendBehaviors
             ->id(My::id() . '_prefs')
             ->legend(new Legend((new Img(My::icons()[0]))->class('icon-small')->render() . ' ' . My::name()))
             ->fields([
-                self::formForm(is_string(App::auth()->getOption(My::id())) ? App::auth()->getOption(My::id()) : null),
+                self::formForm(self::option(App::users()->getUser((string) App::auth()->userID()))),
             ])->render();
     }
 
     public static function userForm(?MetaRecord $rs): void
     {
-        echo self::formForm(is_null($rs) || $rs->isEmpty() ? '0' : (is_string(User::option($rs, My::id())) ? User::option($rs, My::id()) : null))->render();
+        echo self::formForm(is_null($rs) || $rs->isEmpty() ? '0' : self::option($rs))->render();
+    }
+
+    /**
+     * Get user notification option.
+     */
+    private static function option(MetaRecord $rs): ?string
+    {
+        $option = $rs->isEmpty() ? null : User::option($rs, My::id());
+
+        return is_string($option) ? $option : null;
     }
 
     public static function formForm(?string $option): Para
