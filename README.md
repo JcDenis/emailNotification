@@ -36,5 +36,6 @@ Go to ''user preferences'' => fieldset ''others options'', fill in form.
 
 * Olivier Meunier (author)
 * Jean-Christian Denis (latest)
+* Claude (AI assistant by Anthropic)
 
 You are welcome to contribute to this code.
