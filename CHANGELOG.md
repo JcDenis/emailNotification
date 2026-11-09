@@ -1,3 +1,8 @@
+emailNotification 2.5 - 2026.11.09
+===========================================================
+* Add Claude to contributors
+* Move notification mode from user options to user preferences
+
 emailNotification 2.4 - 2026.11.05
 ===========================================================
 * Fix deprecated user option
