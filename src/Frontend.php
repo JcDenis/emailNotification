@@ -12,7 +12,6 @@ use Dotclear\Database\Statement\JoinStatement;
 use Dotclear\Database\Statement\SelectStatement;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Mail\Mail;
-use Dotclear\Schema\Extension\User;
 
 /**
  * @brief       emailNotification frontend class.
@@ -61,7 +60,6 @@ class Frontend
                 ->columns([
                     'U.user_id as user_id',
                     'user_email',
-                    'user_options',
                 ])
                 ->join(
                     (new JoinStatement())
@@ -75,7 +73,6 @@ class Frontend
                     ->columns([
                         'U.user_id as user_id',
                         'user_email',
-                        'user_options',
                     ])
                     ->from($sql->as(App::db()->con()->prefix() . App::auth()::USER_TABLE_NAME, 'U'))
                     ->where('user_super = 1')
@@ -94,9 +91,7 @@ class Frontend
                     continue;
                 }
 
-                $o                 = User::options($users);
-                $notification_pref = isset($o[My::id()]) ? $o[My::id()] : null;
-                unset($o);
+                $notification_pref = My::getUserMode($users->strField('user_id'));
 
                 if ($notification_pref == 'all'
                 || ($notification_pref == 'mine' && $users->strField('user_id') == $rs->strField('user_id'))) {

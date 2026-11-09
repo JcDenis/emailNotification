@@ -31,11 +31,11 @@ class Backend
         }
 
         App::behavior()->addBehaviors([
-            'adminPreferencesFormV2'       => BackendBehaviors::preferencesForm(...),
-            'adminUserForm'                => BackendBehaviors::userForm(...),
-            'adminBeforeUserCreate'        => BackendBehaviors::updateUser(...),
-            'adminBeforeUserUpdate'        => BackendBehaviors::updateUser(...),
-            'adminBeforeUserOptionsUpdate' => BackendBehaviors::updateUser(...),
+            'adminPreferencesFormV2'      => BackendBehaviors::preferencesForm(...),
+            'adminUserForm'               => BackendBehaviors::userForm(...),
+            'adminAfterUserCreate'        => BackendBehaviors::updateUser(...),
+            'adminAfterUserUpdate'        => BackendBehaviors::updateUser(...),
+            'adminAfterUserOptionsUpdate' => BackendBehaviors::updateUser(...),
         ]);
 
         return true;
