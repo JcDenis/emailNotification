@@ -7,7 +7,7 @@
     <desc>Email notification</desc>
     <file>https://github.com/JcDenis/emailNotification/releases/download/v2.5/plugin-emailNotification.zip</file>
     <da:dcmin>2.39</da:dcmin>
-    <da:details>https://github.com/JcDenis/emailNotification/src/branch/master/README.md</da:details>
+    <da:details>https://github.com/JcDenis/emailNotification/blob/master/README.md</da:details>
     <da:support>https://github.com/JcDenis/emailNotification/issues</da:support>
   </module>
 </modules>
