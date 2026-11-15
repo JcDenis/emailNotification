@@ -122,9 +122,8 @@ class Frontend
                 sprintf(__('Entry: %s <%s>'), $rs->strField('post_title'), $rs->getPostURL()) . "\n" .
                 sprintf(__('Comment by: %s <%s>'), $rs->strField('comment_author'), $rs->strField('comment_email')) . "\n" .
                 sprintf(__('Website: %s'), $rs->getAuthorURL()) . "\n" .
-                sprintf(__('Comment status: %s'), __(App::status()->comment()->name((int) $cur->getField('comment_status')))) . "\n" .
-                sprintf(__('Edit this comment: <%s>'), App::config()->adminUrl() .
-                    (str_ends_with(App::config()->adminUrl(), '/') ? '' : '/') .
+                sprintf(__('Comment status: %s'), self::statusName((int) $cur->getField('comment_status'))) . "\n" .
+                sprintf(__('Edit this comment: <%s>'), self::adminUrl() .
                     '?process=Comment&id=' . (is_numeric($cur->getField('comment_id')) ? $cur->getField('comment_id') : 0) .
                     '&switchblog=' . App::blog()->id()
                 ) . "\n" .
@@ -143,5 +142,31 @@ class Frontend
         });
 
         return true;
+    }
+
+    /**
+     * Get translated comment status name.
+     *
+     * Core statuses translations are not loaded on frontend.
+     */
+    private static function statusName(int $status): string
+    {
+        return match ($status) {
+            App::status()->comment()::PUBLISHED   => __('published'),
+            App::status()->comment()::UNPUBLISHED => __('unpublished'),
+            App::status()->comment()::PENDING     => __('pending'),
+            default                               => App::status()->comment()->name($status),
+        };
+    }
+
+    /**
+     * Get admin URL ready for a query string.
+     */
+    private static function adminUrl(): string
+    {
+        $url = App::config()->adminUrl();
+
+        // URL can end with "index.php" or with a directory
+        return str_ends_with($url, '.php') || str_ends_with($url, '/') ? $url : $url . '/';
     }
 }

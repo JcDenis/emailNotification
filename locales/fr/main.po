@@ -64,3 +64,12 @@ msgstr "Vous devez vous enregistrer sur l'interface d'administration avant de cl
 
 msgid "You received a new comment on your blog:"
 msgstr "Vous avez reçu un nouveau commentaire sur votre blog :"
+
+msgid "published"
+msgstr "publié"
+
+msgid "unpublished"
+msgstr "hors ligne"
+
+msgid "pending"
+msgstr "en attente"
