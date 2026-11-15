@@ -1,3 +1,8 @@
+emailNotification 2.6 - 2026.11.15
+===========================================================
+* [fix] Translated comment status and admin link in notification mail
+* [docs] Add a user guide in French, with screenshots
+
 emailNotification 2.5 - 2026.11.09
 ===========================================================
 * Add Claude to contributors

@@ -22,7 +22,7 @@ $this->registerModule(
     'Email notification',
     'Email notification',
     'Olivier Meunier and contributors',
-    '2.5',
+    '2.6',
     [
         'requires'    => [['core', '2.39']],
         'settings'    => ['pref' => '#user-options.' . $this->id . '_prefs'],
@@ -31,6 +31,6 @@ $this->registerModule(
         'support'     => 'https://github.com/JcDenis/' . $this->id . '/issues',
         'details'     => 'https://github.com/JcDenis/' . $this->id . '/',
         'repository'  => 'https://raw.githubusercontent.com/JcDenis/' . $this->id . '/master/dcstore.xml',
-        'date'        => '2026-11-09T19:20:24+00:00',
+        'date'        => '2026-11-15T10:59:52+00:00',
     ]
 );
