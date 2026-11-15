@@ -58,7 +58,7 @@ Blog : Mon blog
 Billet : Les champignons de l'automne <adresse du billet>
 Commentaire par : Marc Petit <marc@example.org>
 Site web : 
-Statut du commentaire : Published
+Statut du commentaire : publié
 Modifier ce commentaire : <adresse de modification dans l'administration>
 Vous devez vous enregistrer sur l'interface d'administration avant de cliquer sur ce lien pour aller directement sur ce commentaire.
 ```
@@ -67,7 +67,6 @@ Le lien **Modifier ce commentaire** ouvre le commentaire dans l'administration ;
 
 ## Bon à savoir
 
-* **Le statut n'est pas traduit** : la ligne « Statut du commentaire » affiche le mot anglais (`Published`, `Unpublished`…), même sur un blog en français.
 * **Pas de réglage par blog** : la notification est un réglage de l'utilisateur, il est le même sur tous ses blogs.
 * **Un seul e-mail par destinataire** pour chaque commentaire, envoyé immédiatement, sans regroupement.
 * **Les rétroliens** sont aussi des commentaires : ils sont notifiés comme les autres.
