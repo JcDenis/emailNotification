@@ -12,6 +12,8 @@ _emailNotification_ is a plugin for the open-source web publishing software call
 
 > Send email when a new comment is done.
 
+A [user guide in French](https://github.com/JcDenis/emailNotification/blob/master/docs/fr/utilisation.md) is available.
+
 ## REQUIREMENTS
 
 * Dotclear 2.39
@@ -27,6 +29,7 @@ Go to ''user preferences'' => fieldset ''others options'', fill in form.
 
 ## LINKS
 
+* [User guide (in French)](https://github.com/JcDenis/emailNotification/blob/master/docs/fr/utilisation.md)
 * [License](https://github.com/JcDenis/emailNotification/blob/master/LICENSE)
 * [Packages & details](https://github.com/JcDenis/emailNotification/releases) (or on [Repository](https://dotclear.org/plugin/detail/emailNotification))
 * [Sources & contributions](https://github.com/JcDenis/emailNotification)
